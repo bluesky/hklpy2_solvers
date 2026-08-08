@@ -29,6 +29,11 @@ describe future plans.
 
     Expected release: tba
 
+    Maintenance
+    -----------
+
+    * Upgrade pins for noarch support.
+
 0.3.7
 ######
 
