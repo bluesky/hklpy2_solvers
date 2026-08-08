@@ -29,10 +29,15 @@ describe future plans.
 
     Expected release: tba
 
-    Maintenance
-    -----------
+0.3.8
+######
 
-    * Upgrade pins for noarch support.
+Released 2026-08-08.
+
+Maintenance
+-----------
+
+* Upgrade pins for noarch support.
 
 0.3.7
 ######
