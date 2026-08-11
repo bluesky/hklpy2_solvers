@@ -29,6 +29,11 @@ describe future plans.
 
     Expected release: tba
 
+    Maintenance
+    ~~~~~~~~~~~
+
+    * Minor, see PR :issue:`130`
+
 0.3.9
 ######
 
