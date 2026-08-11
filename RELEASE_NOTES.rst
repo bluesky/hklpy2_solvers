@@ -29,10 +29,15 @@ describe future plans.
 
     Expected release: tba
 
-    Maintenance
-    ~~~~~~~~~~~
+0.3.9
+######
 
-    * Update repo URLs, docs host, and authors for move to ``bluesky`` org.  :issue:`62`
+Released 2026-08-11.
+
+Maintenance
+~~~~~~~~~~~
+
+* Update repo URLs, docs host, and authors for move to ``bluesky`` org.  :issue:`62`
 
 0.3.8
 ######
