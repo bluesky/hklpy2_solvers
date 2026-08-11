@@ -155,7 +155,7 @@ jobs:
 
           gh_pages = Path("gh-pages-clone")
           switcher_path = Path(os.environ["SWITCHER"])
-          base_url = "https://prjemian.github.io/hklpy2_solvers"
+          base_url = "https://blueskyproject.io/hklpy2_solvers"
           ref = os.environ.get("GITHUB_REF", "")
           tag_version = ref[len("refs/tags/"):] if ref.startswith("refs/tags/") else ""
 

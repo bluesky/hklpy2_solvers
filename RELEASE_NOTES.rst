@@ -20,7 +20,7 @@ Releases
 
 Brief notes describing each release and what's new.
 
-Project `milestones <https://github.com/prjemian/hklpy2_solvers/milestones>`_
+Project `milestones <https://github.com/bluesky/hklpy2_solvers/milestones>`_
 describe future plans.
 
 ..
@@ -28,6 +28,11 @@ describe future plans.
     ######
 
     Expected release: tba
+
+    Maintenance
+    ~~~~~~~~~~~
+
+    * Update repo URLs, docs host, and authors for move to ``bluesky`` org.  :issue:`62`
 
 0.3.8
 ######

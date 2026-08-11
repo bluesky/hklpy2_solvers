@@ -10,6 +10,7 @@ readme = "README.md"
 license = "LicenseRef-UChicago-Argonne-LLC-License"
 license-files = ["LICEN[CS]E*"]
 authors = [
+  { name = "Bluesky Team" },
   { name = "Pete Jemian", email = "prjemian+hklpy2@gmail.com" },
 ]
 maintainers = [{ name = "Pete Jemian", email = "prjemian+hklpy2@gmail.com" }]
@@ -54,9 +55,9 @@ doc = [
 ]
 
 [project.urls]
-homepage = "https://github.com/prjemian/hklpy2_solvers"
-issues = "https://github.com/prjemian/hklpy2_solvers/issues"
-source = "https://github.com/prjemian/hklpy2_solvers"
+homepage = "https://github.com/bluesky/hklpy2_solvers"
+issues = "https://github.com/bluesky/hklpy2_solvers/issues"
+source = "https://github.com/bluesky/hklpy2_solvers"
 
 [project.entry-points."hklpy2.solver"]
 ad_hoc = "hklpy2_solvers.ad_hoc_solver:AdHocSolver"
