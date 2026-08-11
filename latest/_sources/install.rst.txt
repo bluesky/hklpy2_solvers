@@ -43,7 +43,7 @@ Install for development
 
 .. code-block:: bash
 
-   git clone https://github.com/prjemian/hklpy2_solvers
+   git clone https://github.com/bluesky/hklpy2_solvers
    cd hklpy2_solvers
    pip install -e ".[dev]"
 

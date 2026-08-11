@@ -29,8 +29,8 @@ framework via its entry-point interface.
       :ref:`guides`
       · :ref:`install`
       · :doc:`API <api/hklpy2_solvers/index>`
-      · `documentation <https://prjemian.github.io/hklpy2_solvers>`_
-      · `source <https://github.com/prjemian/hklpy2_solvers>`_
+      · `documentation <https://blueskyproject.io/hklpy2_solvers>`_
+      · `source <https://github.com/bluesky/hklpy2_solvers>`_
       · :ref:`release_notes`
       · :ref:`license`
       · :ref:`genindex`
