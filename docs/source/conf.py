@@ -130,7 +130,7 @@ html_theme_options = {
         # across releases, so without this stale entries would linger in
         # browser/CDN caches for up to 10 minutes after a new release.
         "json_url": (
-            "https://prjemian.github.io/hklpy2_solvers/latest/_static/"
+            "https://blueskyproject.io/hklpy2_solvers/latest/_static/"
             f"switcher.json?v={release}"
         ),
         "version_match": switcher_version_match,

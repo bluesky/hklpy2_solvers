@@ -418,7 +418,7 @@ GROUPS = {
 # hkl`` internally for these cases, so round-trip tests are not
 # xfailed.
 KNOWN_TTH_DISAGREEMENTS = {
-    # https://github.com/prjemian/hklpy2_solvers/issues/68 - libhkl B-matrix
+    # https://github.com/bluesky/hklpy2_solvers/issues/68 - libhkl B-matrix
     # bug for cells with direct alpha != 90 deg; ad_hoc + diffcalc-core
     # agree exactly with each other and with the canonical BL1967 B,
     # libhkl is the outlier.  Affects every cell whose direct alpha
@@ -475,7 +475,7 @@ KNOWN_FORWARD_GAPS = {
     # #284: kappa equivalent-Eulerian chi axis now matches
     # fourcv/fourch/psic).  Those two cases now solve and are covered
     # by the default ``does_not_raise()`` parametrizations.
-    # https://github.com/prjemian/hklpy2_solvers/issues/69 and upstream
+    # https://github.com/bluesky/hklpy2_solvers/issues/69 and upstream
     # https://github.com/BCDA-APS/ad_hoc_diffractometer/issues/285 -
     # three ``ad_hoc`` horizontal-bisecting modes (``fourch bisecting``,
     # ``psic bisecting_vertical``, ``kappa6c bisecting_horizontal``)
@@ -508,11 +508,11 @@ KNOWN_FORWARD_GAPS = {
 # environment.  The structural root cause is still unknown and
 # tracked in :issue:`83`.
 CI_ENV_DEPENDENT_GAPS = {
-    # https://github.com/prjemian/hklpy2_solvers/issues/83
+    # https://github.com/bluesky/hklpy2_solvers/issues/83
     ("kappa_horizontal", "k6c", "triclinic", (0, 0, 6)): "issue #83",
     ("kappa_horizontal", "k6c", "triclinic", (1, 1, 0)): "issue #83",
     ("kappa_horizontal", "kappa4ch", "triclinic", (1, 1, 0)): "issue #83",
-    # https://github.com/prjemian/hklpy2_solvers/issues/99 — ``kappa6c
+    # https://github.com/bluesky/hklpy2_solvers/issues/99 — ``kappa6c
     # bisecting_horizontal`` triclinic (1, 1, 0) solves locally under
     # the current ``ad_hoc_diffractometer >= 0.11.1`` floor (fix landed
     # in 0.11.0), but the conda-forge CI env hits the same K6C
