@@ -43,7 +43,7 @@ describe future plans.
     Maintenance
     ~~~~~~~~~~~
 
-    * Bump ``ad_hoc_diffractometer`` floor to ``>=1.0.0rc1``.  :issue:`132`
+    * Bump ``ad_hoc_diffractometer`` floor to ``>=1.0.0``.
     * CI: test with Python 3.11-3.14, try Py 3.15-dev
 
 0.3.9
