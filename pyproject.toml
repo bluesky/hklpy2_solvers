@@ -26,7 +26,7 @@ classifiers = [
   "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-  "ad_hoc_diffractometer>=0.11.4",
+  "ad_hoc_diffractometer>=1.0.0rc1",
   "hklpy2>=0.7.3",
   "numpy",
 ]

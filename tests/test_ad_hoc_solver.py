@@ -43,8 +43,8 @@ GEOMETRY_INFO = {
     },
     "psic": {
         "real_axes": ["mu", "eta", "chi", "phi", "nu", "delta"],
-        "mode_count": 24,
-        "default_mode": "bisecting_vertical",
+        "mode_count": 22,
+        "default_mode": "fixed_omega_vertical",
     },
     "sixc": {
         "real_axes": ["alpha", "omega", "chi", "phi", "delta", "gamma"],
@@ -739,9 +739,14 @@ def test_forward_inverse_roundtrip(parms, context):
             id="fourcv double_diffraction exposes h2/k2/l2",
         ),
         pytest.param(
-            dict(geometry="psic", mode="bisecting_vertical", expected=[]),
+            dict(geometry="psic", mode="fixed_chi_vertical", expected=[]),
             does_not_raise(),
-            id="psic bisecting_vertical has no extras",
+            id="psic fixed_chi_vertical has no extras",
+        ),
+        pytest.param(
+            dict(geometry="psic", mode="fixed_omega_vertical", expected=["omega"]),
+            does_not_raise(),
+            id="psic fixed_omega_vertical exposes omega",
         ),
         pytest.param(
             dict(
@@ -782,11 +787,11 @@ def test_forward_inverse_roundtrip(parms, context):
         pytest.param(
             dict(
                 geometry="sixc",
-                mode="specular_zaxis",
+                mode="incidence_equals_emergence_zaxis",
                 expected=["n_hat", "incidence", "emergence"],
             ),
             does_not_raise(),
-            id="sixc specular_zaxis exposes incidence+emergence",
+            id="sixc incidence_equals_emergence_zaxis exposes incidence+emergence",
         ),
         pytest.param(
             dict(
@@ -972,7 +977,7 @@ def test_forward_with_extras(parms, context):
         pytest.param(
             dict(
                 geometry="psic",
-                mode="bisecting_vertical",
+                mode="fixed_omega_vertical",
                 pseudos={"h": 0.0, "k": 1.0, "l": 1.0},
             ),
             does_not_raise(),
@@ -983,7 +988,7 @@ def test_forward_with_extras(parms, context):
 def test_forward_reference_vector_required(parms, context):
     """Reference modes need ``n_hat`` set or raise a clear error (:issue:`125`).
 
-    ``ad_hoc_diffractometer >= 0.11.3`` implements the
+    ``ad_hoc_diffractometer`` implements the
     ``ReferenceConstraint`` solvers, but ``mode.is_implemented(geometry)``
     only returns ``True`` once the reference vector (``azimuth`` for
     ``psi`` modes) is set.  Without it the library raises a misleading
@@ -1082,11 +1087,11 @@ def test_solver_version(parms, context):
         pytest.param(
             dict(
                 geometry="psic",
-                mode="bisecting_vertical",
-                expected_writable=["chi", "phi", "delta"],
+                mode="fixed_omega_vertical",
+                expected_writable=["eta", "chi", "phi", "delta"],
             ),
             does_not_raise(),
-            id="psic bisecting_vertical writable axes",
+            id="psic fixed_omega_vertical writable axes",
         ),
     ],
 )
@@ -1530,7 +1535,7 @@ def test_summary_dict_all_geometries(parms, context):
     "parms, context",
     [
         pytest.param(
-            dict(geometry="psic", mode="bisecting_vertical"),
+            dict(geometry="psic", mode="fixed_omega_vertical"),
             does_not_raise(),
             id="psic forward-inverse roundtrip",
         ),
@@ -2346,7 +2351,7 @@ def test_init_replays_geometry_state_kwarg(parms, context):
         solver = AdHocSolver(geometry=parms["geometry"], geometry_state=state)
         assert solver.geometry == parms["geometry"]
         # Verify a known psic mode is reachable through the replayed geometry.
-        assert "bisecting_vertical" in solver.modes
+        assert "fixed_omega_vertical" in solver.modes
 
 
 @pytest.mark.parametrize(
@@ -2533,7 +2538,7 @@ def test_metadata_user_registered_geometry(parms, context):
         pytest.param(
             dict(
                 geometry="psic",
-                active_mode="bisecting_vertical",
+                active_mode="fixed_omega_vertical",
                 target_mode="fixed_phi_vertical",
                 updates={"phi": 10.0, "mu": 0.0},
                 check_mode="fixed_phi_vertical",
@@ -2542,6 +2547,32 @@ def test_metadata_user_registered_geometry(parms, context):
             ),
             does_not_raise(),
             id="multi-stage override on psic fixed_phi_vertical",
+        ),
+        pytest.param(
+            dict(
+                geometry="psic",
+                active_mode="fixed_omega_vertical",
+                target_mode=None,  # active-mode shortcut
+                updates={"omega": 30.0},
+                check_mode="fixed_omega_vertical",
+                check_constraint="omega",
+                check_value=30.0,
+            ),
+            does_not_raise(),
+            id="override omega reference constraint on psic fixed_omega_vertical",
+        ),
+        pytest.param(
+            dict(
+                geometry="psic",
+                active_mode="fixed_phi_vertical",
+                target_mode="fixed_omega_horizontal",
+                updates={"omega": -12.5},
+                check_mode="fixed_omega_horizontal",
+                check_constraint="omega",
+                check_value=-12.5,
+            ),
+            does_not_raise(),
+            id="override omega on named psic fixed_omega_horizontal",
         ),
         pytest.param(
             dict(
@@ -2635,6 +2666,54 @@ def test_update_mode_constraints_is_observed_by_forward(parms, context):
             assert sol["chi"] == parms["new_chi"], (
                 f"chi expected {parms['new_chi']} got {sol['chi']} (mode override not applied)"
             )
+
+
+@pytest.mark.parametrize(
+    "parms, context",
+    [
+        pytest.param(
+            dict(mode="fixed_omega_vertical", route="update_mode_constraints", omega=10.0),
+            does_not_raise(),
+            id="psic fixed_omega_vertical omega via update_mode_constraints reaches forward",
+        ),
+        pytest.param(
+            dict(mode="fixed_omega_horizontal", route="update_mode_constraints", omega=8.0),
+            does_not_raise(),
+            id="psic fixed_omega_horizontal omega via update_mode_constraints reaches forward",
+        ),
+        pytest.param(
+            dict(mode="fixed_omega_vertical", route="extras", omega=10.0),
+            does_not_raise(),
+            id="psic fixed_omega_vertical omega via extras setter reaches forward",
+        ),
+    ],
+)
+def test_fixed_omega_target_override_reaches_forward(parms, context):
+    """Nondefault ``omega`` targets reach the solver for psic fixed-omega modes (:issue:`131`).
+
+    The ``fixed_omega_vertical`` / ``fixed_omega_horizontal`` modes pin
+    the SPEC pseudo-angle ``omega`` through a
+    :class:`~ad_hoc_diffractometer.mode.ReferenceConstraint`.  Both the
+    persistent :meth:`AdHocSolver.update_mode_constraints` route and the
+    per-call :attr:`AdHocSolver.extras` setter must push the requested
+    value through to ``forward()``, changing the returned solution
+    relative to the ``omega = 0`` default.
+    """
+    with context:
+        pseudos = {"h": 1.0, "k": 0.0, "l": 0.0}
+        baseline = _make_solver_with_ub(geometry="psic", mode=parms["mode"])
+        baseline_solution = baseline.forward(pseudos)[0]
+
+        solver = _make_solver_with_ub(geometry="psic", mode=parms["mode"])
+        if parms["route"] == "update_mode_constraints":
+            solver.update_mode_constraints(omega=parms["omega"])
+        else:
+            solver.extras = {"omega": parms["omega"]}
+        # The requested target is visible through the extras interface.
+        assert solver.extras["omega"] == parms["omega"]
+        overridden_solution = solver.forward(pseudos)[0]
+        # A nonzero omega target moves the solution off the omega=0 branch.
+        assert overridden_solution != baseline_solution
 
 
 # ---------------------------------------------------------------------------

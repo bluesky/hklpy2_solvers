@@ -40,9 +40,9 @@ recipes.
 .. note::
 
    Reference-constraint modes (those listing ``psi``, ``incidence``,
-   ``emergence``, or ``surface_normal``/``azimuth``) require
-   ``ad_hoc_diffractometer >= 0.11.3`` and the corresponding reference
-   vector to be set (via the ``n_hat`` extra); otherwise
+   ``emergence``, or ``surface_normal``/``azimuth``) require the
+   corresponding reference vector to be set (via the ``n_hat`` extra);
+   otherwise
    :meth:`~hklpy2_solvers.ad_hoc_solver.AdHocSolver.forward` raises
    :class:`~hklpy2.exceptions.SolverError`.
 
@@ -188,7 +188,7 @@ See `ad_hoc_diffractometer psic
    * - Pseudo axes
      - ``h``, ``k``, ``l``
    * - Default mode
-     - ``bisecting_vertical``
+     - ``fixed_omega_vertical``
 
 .. list-table:: ``psic`` operating modes
    :header-rows: 1
@@ -198,10 +198,6 @@ See `ad_hoc_diffractometer psic
      - Constant stages
      - writable(s)
      - extra(s)
-   * - ``bisecting_vertical``
-     - eta, mu, nu
-     - chi, phi, delta
-     -
    * - ``fixed_phi_vertical``
      - mu, nu, phi
      - eta, chi, delta
@@ -218,7 +214,7 @@ See `ad_hoc_diffractometer psic
      - mu, nu
      - eta, chi, phi, delta
      - surface_normal, incidence, emergence
-   * - ``specular_vertical``
+   * - ``incidence_equals_emergence_vertical``
      - mu, nu
      - eta, chi, phi, delta
      - surface_normal, incidence, emergence
@@ -238,10 +234,6 @@ See `ad_hoc_diffractometer psic
      - mu, nu
      - eta, chi, phi, delta
      - h2, k2, l2
-   * - ``bisecting_horizontal``
-     - delta, eta, mu
-     - chi, phi, nu
-     -
    * - ``fixed_phi_horizontal``
      - delta, eta, phi
      - mu, chi, nu
@@ -258,7 +250,7 @@ See `ad_hoc_diffractometer psic
      - delta, eta
      - mu, chi, phi, nu
      - surface_normal, incidence, emergence
-   * - ``specular_horizontal``
+   * - ``incidence_equals_emergence_horizontal``
      - delta, eta
      - mu, chi, phi, nu
      - surface_normal, incidence, emergence
@@ -348,7 +340,7 @@ See `ad_hoc_diffractometer sixc
      - chi, gamma
      - alpha, omega, phi, delta
      - surface_normal, incidence, emergence
-   * - ``specular_zaxis``
+   * - ``incidence_equals_emergence_zaxis``
      - chi, phi
      - alpha, omega, delta, gamma
      - surface_normal, incidence, emergence
