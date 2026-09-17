@@ -29,22 +29,27 @@ describe future plans.
 
     Expected release: tba
 
-    Breaking Changes
-    ~~~~~~~~~~~~~~~~
+1.0.0rc1
+######
 
-    * Rename psic ``bisecting_*`` modes to ``fixed_omega_*``.  :issue:`132`
-    * Rename ``specular_*`` modes to ``incidence_equals_emergence_*``.  :issue:`132`
+Released 2026-09-17.
 
-    New Features
-    ~~~~~~~~~~~~
+Breaking Changes
+~~~~~~~~~~~~~~~~
 
-    * Expose psic ``fixed_omega_*`` ``omega`` target via ``extras``.  :issue:`131`
+* Rename psic ``bisecting_*`` modes to ``fixed_omega_*``.  :issue:`132`
+* Rename ``specular_*`` modes to ``incidence_equals_emergence_*``.  :issue:`132`
 
-    Maintenance
-    ~~~~~~~~~~~
+New Features
+~~~~~~~~~~~~
 
-    * Bump ``ad_hoc_diffractometer`` floor to ``>=1.0.0``.
-    * CI: test with Python 3.11-3.14, try Py 3.15-dev
+* Expose psic ``fixed_omega_*`` ``omega`` target via ``extras``.  :issue:`131`
+
+Maintenance
+~~~~~~~~~~~
+
+* Bump ``ad_hoc_diffractometer`` floor to ``>=1.0.0``.
+* CI: test with Python 3.11-3.14, try Py 3.15-dev
 
 0.3.9
 ######
