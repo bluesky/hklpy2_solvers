@@ -195,7 +195,7 @@ EULER_VERTICAL_GROUP = {
         solver="ad_hoc",
         geometry="psic",
         reals=["mu", "omega", "chi", "phi", "nu", "ttheta"],
-        mode="bisecting_vertical",
+        mode="fixed_omega_vertical",
     ),
     "fivec": dict(
         solver="ad_hoc",
@@ -294,7 +294,7 @@ EULER_HORIZONTAL_GROUP = {
         solver="ad_hoc",
         geometry="psic",
         reals=["omega", "eta", "chi", "phi", "ttheta", "delta"],
-        mode="bisecting_horizontal",
+        mode="fixed_omega_horizontal",
     ),
     "diffcalc": dict(
         solver="diffcalc",
@@ -1084,17 +1084,18 @@ def test_two_theta_matches_reference(parms, context, simulators):
         ),
     ],
 )
-def test_psic_bisecting_horizontal_asymmetric_pattern(parms, context, simulators):
-    """``ad_hoc/psic bisecting_horizontal`` solves symmetric and asymmetric sapphire reflections.
+def test_psic_fixed_omega_horizontal_asymmetric_pattern(parms, context, simulators):
+    """``ad_hoc/psic fixed_omega_horizontal`` solves symmetric and asymmetric sapphire reflections.
 
     Regression for :issue:`71` (closed upstream as
     ``BCDA-APS/ad_hoc_diffractometer#275``, fixed in
     ``ad_hoc_diffractometer >= 0.11.0`` via PR #281 / issue #280:
     rotation-composition order, basis-aware ``ub_identity``, BL1967
-    B-matrix orthogonalized frame).  Before the fix the
-    ``bisecting_horizontal`` mode on ``ad_hoc/psic`` could not solve
-    sapphire reflections whose Miller indices had ``h`` or ``k``
-    nonzero with ``h != k``, while the three peers in
+    B-matrix orthogonalized frame).  Before the fix the horizontal
+    bisecting mode on ``ad_hoc/psic`` (``bisecting_horizontal`` then;
+    ``fixed_omega_horizontal`` since ``ad_hoc_diffractometer 1.0.0``)
+    could not solve sapphire reflections whose Miller indices had ``h``
+    or ``k`` nonzero with ``h != k``, while the three peers in
     ``EULER_HORIZONTAL_GROUP`` (``hkl_soleil/E6C``,
     ``ad_hoc/fourch``, ``diffcalc/diffcalc_4S_2D``) solved every
     reflection in this scan to within ``0.001 deg``.
@@ -1231,8 +1232,8 @@ def test_kappa6c_bisecting_horizontal_reflection_pattern(parms, context, simulat
     ``SampleConstraint('komega', 0.0)``,
     ``DetectorConstraint('delta', 0.0)``) leave only ``kappa``,
     ``kphi``, and ``nu`` writable — structurally parallel to the
-    ``psic bisecting_horizontal`` constraints regressed in
-    :func:`test_psic_bisecting_horizontal_asymmetric_pattern`.
+    ``psic fixed_omega_horizontal`` constraints regressed in
+    :func:`test_psic_fixed_omega_horizontal_asymmetric_pattern`.
 
     The single surviving known gap is ``cubic (1, 0, 0)``: ``Q`` is
     along the cubic ``+a``\\ * axis which lands along the lab beam

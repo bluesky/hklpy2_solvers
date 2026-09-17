@@ -563,11 +563,12 @@ class AdHocSolver(SolverBase):
         """Raise a clear :class:`SolverError` for an unset reference vector.
 
         Reference-constraint modes (``psi`` / ``incidence`` / ``emergence``
-        / ``specular``) *are* implemented, but they are not **ready** to
-        solve until their reference vector — ``azimuth`` for ``psi``,
-        ``surface_normal`` for the others — is set on the geometry: that
-        vector is part of the mode's definition.  While it is unset the
-        underlying library reports ``mode.is_implemented(geometry)`` as
+        / ``incidence_equals_emergence``) *are* implemented, but they are
+        not **ready** to solve until their reference vector — ``azimuth``
+        for ``psi``, ``surface_normal`` for the others — is set on the
+        geometry: that vector is part of the mode's definition.  While it
+        is unset the underlying library reports
+        ``mode.is_implemented(geometry)`` as
         ``False`` and raises a misleading *"mode ... is not yet
         implemented"* ``NotImplementedError`` (:issue:`125`).
 

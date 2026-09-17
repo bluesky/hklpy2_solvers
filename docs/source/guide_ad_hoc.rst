@@ -229,7 +229,7 @@ mode's reference constraint.
    * - Mode reference constraint
      - Geometry attribute
      - Set with
-   * - ``incidence``, ``emergence``, ``specular``
+   * - ``incidence``, ``emergence``, ``incidence_equals_emergence``
      - ``surface_normal``
      - ``solver._geom.surface_normal = (h, k, l)``
    * - ``psi``, ``naz``
@@ -292,7 +292,7 @@ Clear an attribute by assigning ``None``.
 
 .. caution::
 
-   ``ad_hoc_diffractometer >= 0.11.1`` emits a ``UserWarning`` when
+   ``ad_hoc_diffractometer`` emits a ``UserWarning`` when
    ``cs.extras["n_hat"]`` is overwritten directly with a real value
    (the assignment has no effect on :meth:`forward`).  Use one of the
    two recipes above instead; both bypass the placeholder.
@@ -396,8 +396,8 @@ Available geometries at a glance
      - bisecting
    * - :ref:`psic <geometry.psic>`
      - mu, eta, chi, phi, nu, delta
-     - 24
-     - bisecting_vertical
+     - 22
+     - fixed_omega_vertical
    * - :ref:`sixc <geometry.sixc>`
      - alpha, omega, chi, phi, delta, gamma
      - 6

@@ -29,6 +29,17 @@ describe future plans.
 
     Expected release: tba
 
+    Breaking Changes
+    ~~~~~~~~~~~~~~~~
+
+    * Rename psic ``bisecting_*`` modes to ``fixed_omega_*``.  :issue:`132`
+    * Rename ``specular_*`` modes to ``incidence_equals_emergence_*``.  :issue:`132`
+
+    Maintenance
+    ~~~~~~~~~~~
+
+    * Bump ``ad_hoc_diffractometer`` floor to ``>=1.0.0rc1``.  :issue:`132`
+
 0.3.9
 ######
 

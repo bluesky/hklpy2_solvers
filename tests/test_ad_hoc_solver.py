@@ -43,8 +43,8 @@ GEOMETRY_INFO = {
     },
     "psic": {
         "real_axes": ["mu", "eta", "chi", "phi", "nu", "delta"],
-        "mode_count": 24,
-        "default_mode": "bisecting_vertical",
+        "mode_count": 22,
+        "default_mode": "fixed_omega_vertical",
     },
     "sixc": {
         "real_axes": ["alpha", "omega", "chi", "phi", "delta", "gamma"],
@@ -739,9 +739,9 @@ def test_forward_inverse_roundtrip(parms, context):
             id="fourcv double_diffraction exposes h2/k2/l2",
         ),
         pytest.param(
-            dict(geometry="psic", mode="bisecting_vertical", expected=[]),
+            dict(geometry="psic", mode="fixed_omega_vertical", expected=[]),
             does_not_raise(),
-            id="psic bisecting_vertical has no extras",
+            id="psic fixed_omega_vertical has no extras",
         ),
         pytest.param(
             dict(
@@ -782,11 +782,11 @@ def test_forward_inverse_roundtrip(parms, context):
         pytest.param(
             dict(
                 geometry="sixc",
-                mode="specular_zaxis",
+                mode="incidence_equals_emergence_zaxis",
                 expected=["n_hat", "incidence", "emergence"],
             ),
             does_not_raise(),
-            id="sixc specular_zaxis exposes incidence+emergence",
+            id="sixc incidence_equals_emergence_zaxis exposes incidence+emergence",
         ),
         pytest.param(
             dict(
@@ -972,7 +972,7 @@ def test_forward_with_extras(parms, context):
         pytest.param(
             dict(
                 geometry="psic",
-                mode="bisecting_vertical",
+                mode="fixed_omega_vertical",
                 pseudos={"h": 0.0, "k": 1.0, "l": 1.0},
             ),
             does_not_raise(),
@@ -983,7 +983,7 @@ def test_forward_with_extras(parms, context):
 def test_forward_reference_vector_required(parms, context):
     """Reference modes need ``n_hat`` set or raise a clear error (:issue:`125`).
 
-    ``ad_hoc_diffractometer >= 0.11.3`` implements the
+    ``ad_hoc_diffractometer`` implements the
     ``ReferenceConstraint`` solvers, but ``mode.is_implemented(geometry)``
     only returns ``True`` once the reference vector (``azimuth`` for
     ``psi`` modes) is set.  Without it the library raises a misleading
@@ -1082,11 +1082,11 @@ def test_solver_version(parms, context):
         pytest.param(
             dict(
                 geometry="psic",
-                mode="bisecting_vertical",
-                expected_writable=["chi", "phi", "delta"],
+                mode="fixed_omega_vertical",
+                expected_writable=["eta", "chi", "phi", "delta"],
             ),
             does_not_raise(),
-            id="psic bisecting_vertical writable axes",
+            id="psic fixed_omega_vertical writable axes",
         ),
     ],
 )
@@ -1530,7 +1530,7 @@ def test_summary_dict_all_geometries(parms, context):
     "parms, context",
     [
         pytest.param(
-            dict(geometry="psic", mode="bisecting_vertical"),
+            dict(geometry="psic", mode="fixed_omega_vertical"),
             does_not_raise(),
             id="psic forward-inverse roundtrip",
         ),
@@ -2346,7 +2346,7 @@ def test_init_replays_geometry_state_kwarg(parms, context):
         solver = AdHocSolver(geometry=parms["geometry"], geometry_state=state)
         assert solver.geometry == parms["geometry"]
         # Verify a known psic mode is reachable through the replayed geometry.
-        assert "bisecting_vertical" in solver.modes
+        assert "fixed_omega_vertical" in solver.modes
 
 
 @pytest.mark.parametrize(
@@ -2533,7 +2533,7 @@ def test_metadata_user_registered_geometry(parms, context):
         pytest.param(
             dict(
                 geometry="psic",
-                active_mode="bisecting_vertical",
+                active_mode="fixed_omega_vertical",
                 target_mode="fixed_phi_vertical",
                 updates={"phi": 10.0, "mu": 0.0},
                 check_mode="fixed_phi_vertical",
