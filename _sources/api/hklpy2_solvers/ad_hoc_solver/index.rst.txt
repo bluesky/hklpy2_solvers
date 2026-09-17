@@ -124,9 +124,9 @@ Module Contents
 
       Drawn from the underlying mode's ``extras`` dict (filtered to the
       names the user is expected to supply: ``n_hat``, ``psi``,
-      ``incidence``, ``emergence``, ``h2``, ``k2``, ``l2``) plus the
-      scalar name of the active :class:`ReferenceConstraint` if it
-      names one of those inputs and is not already listed.
+      ``incidence``, ``emergence``, ``omega``, ``h2``, ``k2``, ``l2``)
+      plus the scalar name of the active :class:`ReferenceConstraint`
+      if it names one of those inputs and is not already listed.
 
       Solver-output placeholders (e.g. ``psi`` populated by the solver
       after :meth:`forward`) are also exposed as inputs so the user can
@@ -324,9 +324,9 @@ Module Contents
                           :class:`~ad_hoc_diffractometer.mode.DetectorConstraint`, or
                           :class:`~ad_hoc_diffractometer.mode.ReferenceConstraint` in
                           the mode.  Reference-constraint scalars (``psi``, ``incidence``,
-                          ``emergence``) can also be updated through the per-call
-                          :attr:`extras` setter; this method is the route for persistent
-                          overrides of fixed-axis defaults.
+                          ``emergence``, ``omega``) can also be updated through the
+                          per-call :attr:`extras` setter; this method is the route for
+                          persistent overrides of fixed-axis defaults.
       :type \*\*updates: float or bool
 
       :raises SolverError: If ``mode_name`` is unknown, if any kwarg names a constraint
