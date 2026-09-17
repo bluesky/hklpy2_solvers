@@ -25,10 +25,10 @@ jobs:
           - "3.12"
           - "3.13"
           - "3.14"
-        # experimental: [false]
-        # include:
-        #   - python-version: "3.15-dev"
-        #     experimental: true
+        include:
+          # 3.15 is pre-release; run it for early warning but don't fail CI
+          - python-version: "3.15-dev"
+            continue-on-error: true
 
     steps:
       - uses: actions/checkout@v7
