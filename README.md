@@ -11,7 +11,7 @@
 [![Documentation](https://img.shields.io/badge/docs-blue)](https://blueskyproject.io/hklpy2_solvers/latest/)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/bluesky/hklpy2_solvers)
 [![License: ANL](https://img.shields.io/badge/license-ANL-brightgreen)](LICENSE)
-[![DOI](https://zenodo.org/badge/1208865041.svg)](https://doi.org/10.5281/zenodo.22819789)
+[DOI](https://doi.org/10.5281/zenodo.22819789) **10.5281/zenodo.22819789**
 
 Solvers for the [hklpy2](https://github.com/bluesky/hklpy2) package.
 
