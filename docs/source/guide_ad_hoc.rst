@@ -352,11 +352,36 @@ Unknown mode names, unknown constraint names, and values rejected by
 the underlying library all raise :class:`~hklpy2.exceptions.SolverError`
 with a descriptive message.
 
+Set a nondefault ``omega`` target
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``psic`` default modes ``fixed_omega_vertical`` and
+``fixed_omega_horizontal`` pin the SPEC pseudo-angle ``omega``.  Its
+target defaults to ``0`` but is user-settable, through either the
+persistent :meth:`~hklpy2_solvers.ad_hoc_solver.AdHocSolver.update_mode_constraints`
+route or the per-call ``extras`` setter:
+
+.. code-block:: python
+
+   # persistent: becomes the mode default for later forward() calls
+   psic2.core.solver.update_mode_constraints("fixed_omega_vertical", omega=30.0)
+
+   # per-call: the mode must be active so Core accepts the extra
+   psic2.core.mode = "fixed_omega_vertical"
+   psic2.core.update_solver()
+   psic2.core.extras = {"omega": 30.0}
+
+Unlike the surface reference scalars (``incidence`` / ``emergence`` /
+``incidence_equals_emergence``), ``omega`` needs no reference vector, so
+no ``n_hat`` is required.  The current target is visible through the
+``extras`` interface (``psic2.core.solver.extras["omega"]``).
+
 Persistent overrides vs. per-call reference scalars
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Two distinct routes touch reference-constraint scalars
-(``psi``, ``incidence``, ``emergence``) on modes that expose them:
+(``psi``, ``incidence``, ``emergence``, ``omega``) on modes that
+expose them:
 
 * :meth:`~hklpy2_solvers.ad_hoc_solver.AdHocSolver.update_mode_constraints`
   is the **persistent** route — the new value becomes the mode's

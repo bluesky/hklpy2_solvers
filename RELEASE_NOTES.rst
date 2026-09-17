@@ -35,6 +35,11 @@ describe future plans.
     * Rename psic ``bisecting_*`` modes to ``fixed_omega_*``.  :issue:`132`
     * Rename ``specular_*`` modes to ``incidence_equals_emergence_*``.  :issue:`132`
 
+    New Features
+    ~~~~~~~~~~~~
+
+    * Expose psic ``fixed_omega_*`` ``omega`` target via ``extras``.  :issue:`131`
+
     Maintenance
     ~~~~~~~~~~~
 

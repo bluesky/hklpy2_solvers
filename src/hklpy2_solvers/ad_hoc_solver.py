@@ -51,7 +51,9 @@ try:
 except PackageNotFoundError:  # pragma: no cover - defensive
     _BACKEND_VERSION = "unknown"
 
-_INPUT_EXTRA_NAMES: frozenset[str] = frozenset({"n_hat", "psi", "incidence", "emergence", "h2", "k2", "l2"})
+_INPUT_EXTRA_NAMES: frozenset[str] = frozenset(
+    {"n_hat", "psi", "incidence", "emergence", "omega", "h2", "k2", "l2"}
+)
 """Names of mode-extra parameters supplied by the user (vs. solver outputs)."""
 
 # ---------------------------------------------------------------------------
@@ -90,7 +92,7 @@ _GEOMETRY_STATE_OMIT_KEYS: frozenset[str] = frozenset({"active_sample", "samples
 manages independently and must not round-trip through the solver
 state (avoids double-restore of samples and wavelength)."""
 
-_REFERENCE_EXTRA_NAMES: frozenset[str] = frozenset({"psi", "incidence", "emergence"})
+_REFERENCE_EXTRA_NAMES: frozenset[str] = frozenset({"psi", "incidence", "emergence", "omega"})
 """Reference-constraint scalar extras (set via ``ConstraintSet.with_constraint_values``)."""
 
 _DOUBLE_DIFF_EXTRA_NAMES: tuple[str, ...] = ("h2", "k2", "l2")
@@ -319,9 +321,9 @@ class AdHocSolver(SolverBase):
 
         Drawn from the underlying mode's ``extras`` dict (filtered to the
         names the user is expected to supply: ``n_hat``, ``psi``,
-        ``incidence``, ``emergence``, ``h2``, ``k2``, ``l2``) plus the
-        scalar name of the active :class:`ReferenceConstraint` if it
-        names one of those inputs and is not already listed.
+        ``incidence``, ``emergence``, ``omega``, ``h2``, ``k2``, ``l2``)
+        plus the scalar name of the active :class:`ReferenceConstraint`
+        if it names one of those inputs and is not already listed.
 
         Solver-output placeholders (e.g. ``psi`` populated by the solver
         after :meth:`forward`) are also exposed as inputs so the user can
@@ -384,8 +386,8 @@ class AdHocSolver(SolverBase):
 
         * ``n_hat``  -> ``geometry.surface_normal`` (length-3 sequence or
           ``None``).
-        * ``psi``, ``incidence``, ``emergence`` -> rebuild the active
-          :class:`ConstraintSet` via
+        * ``psi``, ``incidence``, ``emergence``, ``omega`` -> rebuild the
+          active :class:`ConstraintSet` via
           :meth:`~ad_hoc_diffractometer.mode.ConstraintSet.with_constraint_values`
           so the :class:`ReferenceConstraint` carries the new scalar
           value.
@@ -463,9 +465,9 @@ class AdHocSolver(SolverBase):
             :class:`~ad_hoc_diffractometer.mode.DetectorConstraint`, or
             :class:`~ad_hoc_diffractometer.mode.ReferenceConstraint` in
             the mode.  Reference-constraint scalars (``psi``, ``incidence``,
-            ``emergence``) can also be updated through the per-call
-            :attr:`extras` setter; this method is the route for persistent
-            overrides of fixed-axis defaults.
+            ``emergence``, ``omega``) can also be updated through the
+            per-call :attr:`extras` setter; this method is the route for
+            persistent overrides of fixed-axis defaults.
 
         Raises
         ------
