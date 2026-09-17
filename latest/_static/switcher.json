@@ -75,5 +75,9 @@
     {
         "version": "v0.1.5",
         "url": "https://blueskyproject.io/hklpy2_solvers/v0.1.5/"
+    },
+    {
+        "version": "v1.0.0rc1",
+        "url": "https://blueskyproject.io/hklpy2_solvers/v1.0.0rc1/"
     }
 ]
