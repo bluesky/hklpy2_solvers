@@ -35,7 +35,7 @@ describe future plans.
     * Link to [![DOI](https://zenodo.org/badge/1208865041.svg)](https://doi.org/10.5281/zenodo.22819789).
 
 1.0.0rc1
-######
+########
 
 Released 2026-09-17.
 
